@@ -19,8 +19,6 @@ Email: <input type="text" id="email">
 
 <button onclick="submitIssue()">Submit</button>
 
-<div id="popup"></div>
-
 <script>
 function submitIssue() {
   var name = document.getElementById('name').value || 'Anonymous';
@@ -43,8 +41,10 @@ function submitIssue() {
 
   var popupContent = '<p>Your contact details have been submitted.</p>' + socialLinks;
 
-  var popup = document.getElementById('popup');
-  popup.innerHTML = popupContent;
+  var popup = window.open('', '_blank', 'width=600,height=400');
+  popup.document.open();
+  popup.document.write(popupContent);
+  popup.document.close();
 }
 </script>
 
