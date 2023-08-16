@@ -21,15 +21,30 @@ Email: <input type="text" id="email">
 
 <script>
 function submitIssue() {
-  var name = document.getElementById('name').value;
-  var github = document.getElementById('github').value;
-  var email = document.getElementById('email').value;
+  var name = document.getElementById('name').value || 'Anonymous';
+  var github = document.getElementById('github').value || 'Anonymous';
+  var email = document.getElementById('email').value || 'Anonymous';
   var message = document.getElementById('message').value;
 
-  var title = github ? 'Contact Request from @' + github : 'Contact Request from Anonymous';
-  var body = '## Contact Details\n\nName: ' + name + '\nGitHub Handle: ' + github + '\nEmail: ' + email + '\n\n## Message\n' + message;
+  var title = github === 'Anonymous' ? 'Contact Request from Anonymous' : 'Contact Request from @' + github;
+  var body = '## Contact Details\n\nName: ' + name + '\nGitHub Handle: ' + github + '\nEmail: ' + email + '\n\n## Message\n' + (message || '*No message provided*');
 
-  window.location.href = 'https://github.com/projectvastra/projectvastra.github.io/issues/new?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+  if (!message) {
+    alert('Please provide a message before submitting.');
+    return;
+  }
+
+  var encodedTitle = encodeURIComponent(title);
+  var encodedBody = encodeURIComponent(body);
+
+  var socialLinks = ;
+
+  var popupContent = '<p>Your contact details have been submitted.</p>' + socialLinks;
+
+  var popup = window.open('', '_blank', 'width=600,height=400');
+  popup.document.open();
+  popup.document.write(popupContent);
+  popup.document.close();
 }
 </script>
 
